@@ -1,9 +1,13 @@
 import { getCategories, saveCategories, getTransactions } from './storage.js';
 import { deleteTransaction } from './transactions.js';
+import { calculateTools } from './calculations.js';
 
 // DOM Elements
 const categorySelect = document.getElementById('category');
 const transactionList = document.getElementById('transaction-list');
+const totalIncomeEl = document.getElementById('total-income');
+const totalExpensesEl = document.getElementById('total-expenses');
+const netBalanceEl = document.getElementById('net-balance');
 
 // Initialize default categories if not present
 const defaultCategories = ["Food", "Transport", "Entertainment", "Bills", "Other"];
@@ -44,6 +48,11 @@ export const renderTransactions = (transactions) => {
   document.querySelectorAll('[data-id]').forEach(btn => {
     btn.addEventListener('click', () => deleteTransaction(btn.dataset.id));
   });
+
+  const { income, expenses, net } = calculateTools(transactions);
+  totalIncomeEl.textContent = `₹${income}`;
+  totalExpensesEl.textContent = `₹${expenses}`;
+  netBalanceEl.textContent = `₹${net}`;
 };
 
 document.addEventListener('DOMContentLoaded', () => {
