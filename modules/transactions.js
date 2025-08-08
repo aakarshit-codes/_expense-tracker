@@ -1,6 +1,7 @@
 import { getTransactions, saveTransactions } from "./storage.js";
-import { renderTransactions } from "./ui.js";
+// import { renderTransactions } from "./ui.js";
 import { validateTransaction } from "./validation.js";
+import { applyFilter } from "./filters.js";
 
 const form = document.getElementById('transaction-form');
 const errorMessage = document.getElementById('error-message');
@@ -9,13 +10,15 @@ export const addTransaction = (transaction) => {
   const transactions = getTransactions();
   transactions.push(transaction);
   saveTransactions(transactions);
-  renderTransactions(transactions);
+  // renderTransactions(transactions);
+  applyFilter(localStorage.getItem('activeFilter') || 'all');
 }
 
 export const deleteTransaction = (id) => {
   const transactions = getTransactions().filter(t => t.id !== id);
   saveTransactions(transactions);
-  renderTransactions(transactions);
+  // renderTransactions(transactions);
+  applyFilter(localStorage.getItem('activeFilter') || 'all');
 }
 
 // Form Submission

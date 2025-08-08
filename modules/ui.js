@@ -57,5 +57,5 @@ export const renderTransactions = (transactions) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   loadCategories();
-  renderTransactions(getTransactions());
+  // renderTransactions(getTransactions());
 });
